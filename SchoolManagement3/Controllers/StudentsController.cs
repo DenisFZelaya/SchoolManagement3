@@ -10,7 +10,7 @@ using SchoolManagement3.Models;
 
 namespace SchoolManagement3.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teacher")]
     public class StudentsController : Controller
     {
         private SchollManagement_DBEntities db = new SchollManagement_DBEntities();

@@ -50,9 +50,8 @@ namespace SchoolManagement3.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -61,6 +60,9 @@ namespace SchoolManagement3.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+
+
     }
 
     public class RegisterViewModel
@@ -85,6 +87,16 @@ namespace SchoolManagement3.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "User Role")]
+        public string UserRole { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel
