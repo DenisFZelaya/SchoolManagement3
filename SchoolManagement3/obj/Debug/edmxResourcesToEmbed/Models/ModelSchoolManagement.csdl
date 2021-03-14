@@ -19,6 +19,8 @@
     <Property Name="StudentID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Course" Relationship="Self.FK_dbo_Enrollment_dbo_Course_CourseID" FromRole="Enrollment" ToRole="Course" />
     <NavigationProperty Name="Student" Relationship="Self.FK_dbo_Enrrollment_dbo_Student_StudentID" FromRole="Enrollment" ToRole="Student" />
+    <Property Name="LecturerId" Type="Int32" />
+    <NavigationProperty Name="Lecturers" Relationship="SchollManagement_DBModel.FK_dbo_Enrrollment_dbo_Lecturer_LecturerID" FromRole="Enrollment" ToRole="Lecturers" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -71,5 +73,33 @@
       <End Role="Student" EntitySet="Student" />
       <End Role="Enrollment" EntitySet="Enrollment" />
     </AssociationSet>
+    <EntitySet Name="Lecturers" EntityType="SchollManagement_DBModel.Lecturers" />
+    <AssociationSet Name="FK_dbo_Enrrollment_dbo_Lecturer_LecturerID" Association="SchollManagement_DBModel.FK_dbo_Enrrollment_dbo_Lecturer_LecturerID">
+      <End Role="Lecturers" EntitySet="Lecturers" />
+      <End Role="Enrollment" EntitySet="Enrollment" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Lecturers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Enrollment" Relationship="SchollManagement_DBModel.FK_dbo_Enrrollment_dbo_Lecturer_LecturerID" FromRole="Lecturers" ToRole="Enrollment" />
+  </EntityType>
+  <Association Name="FK_dbo_Enrrollment_dbo_Lecturer_LecturerID">
+    <End Type="SchollManagement_DBModel.Lecturers" Role="Lecturers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="SchollManagement_DBModel.Enrollment" Role="Enrollment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lecturers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Enrollment">
+        <PropertyRef Name="LecturerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
